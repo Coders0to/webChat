@@ -1,0 +1,39 @@
+<%- include('layouts/header-date.ejs') %>
+<main class="main-content">
+
+    <!-- FULL WIDTH HERO -->
+    <section class="notification-hero">
+        <div class="notification-hero-inner">
+            <h1 class="notification-title">🔔 Notifications</h1>
+            <p class="notification-subtitle">
+                Stay updated with your matches & activity ✨
+            </p>
+        </div>
+    </section>
+
+    <!-- APP CONTENT -->
+    <div class="notification-wrap" role="application" aria-label="Dating UI">
+      <div class="notification-header">
+                <span class="count">Unread <strong id="notification-count">0</strong></span>
+            </div>
+        <section class="notification-page">
+
+            
+
+            <!-- IMPORTANT: NO inline style here -->
+            <div id="notification-list2" class="notification-list">
+                <!-- JS se notifications yahin add hongi -->
+            </div>
+
+        </section>
+    </div>
+
+</main>
+
+
+
+ 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASFFCKBSuGs8MnNkDKC_zRdkFffK6YTdg&libraries=places"></script>
+<script src="public/js/common.js"></script>
+<script src="/public/js/notification.js"></script>
+

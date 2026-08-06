@@ -1,0 +1,14 @@
+# Environment file
+.env
+
+# Firebase service account
+firebase-service-account.json
+
+# Agar file kisi folder me hai
+config/firebase-service-account.json
+
+# Node modules
+node_modules/
+
+# Logs
+*.log
