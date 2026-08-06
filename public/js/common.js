@@ -56,10 +56,10 @@ $(document).on("click", ".suggest-item", function () {
 });
 
 //to hide show sidebar 
-const menuToggle = document.querySelector('.menu-toggle');
-const sidebar = document.querySelector('.sidebar');
-menuToggle.addEventListener('click', (e) => {
+const menuToggle1 = document.querySelector('.menu-toggle');
+const sidebar1 = document.querySelector('.sidebar');
+menuToggle1.addEventListener('click', (e) => {
     e.stopPropagation(); 
-    sidebar.classList.toggle('sidebar-open');
+    sidebar1.classList.toggle('sidebar-open');
 });
 //end to hide show sidebar 
