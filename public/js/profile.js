@@ -68,7 +68,6 @@ $(document).on('click', '#saveProfile', function(e) {
         userFormData.append('moreImg', files[i]);
     }
   
-  console.log([...userFormData.entries()]);
   $.ajax({
     url:'updateProfile',
     type:'post',
@@ -76,10 +75,11 @@ $(document).on('click', '#saveProfile', function(e) {
     contentType: false,
     data:userFormData,
     success:function(response){
+      toastr.success("Profile Updated Successfully.");
       console.log('user form response',userFormData);
     },
     error:function(error){
-
+      console.log('error',error);
     }
   })
 });
@@ -98,6 +98,7 @@ function saveProfileImg(input) {
         contentType: false,
         success: function(response) {
             console.log(response);
+            
         },
         error: function(xhr) {
             console.log(xhr.responseText);

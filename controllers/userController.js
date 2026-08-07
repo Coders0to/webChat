@@ -763,7 +763,7 @@
             //await userDetail.deleteMany({user_id:req.session?.user?._id});
             const user = req.session.user;
             const userId = req.session.user._id;
-            const userRecord = await User.findById(userId).select('_id name email image age gender');
+            const userRecord = await User.findById(userId).select('_id name email image age gender location');
             const userDetailRecord = await userDetail.findOne({user_id:userId}).lean();
             const responseData = {
                                     ...userRecord,
