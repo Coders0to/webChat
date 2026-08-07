@@ -23,8 +23,12 @@
                                 <h4><%= userData.name %> </h4>
                                 <p>Click to chat 💬</p>
                             </div>
-
-                            <div id="unseen-<%= userData._id %>" class="unseen"><%= userData.unreadMsgCount %></div>
+                            <% if (userData.unreadMsgCount > 0) { %>
+                                <div id="unseen-<%= userData._id %>" class="unseen">
+                                    <%= userData.unreadMsgCount %>
+                                </div>
+                            <% } %>
+                            <!-- <div id="unseen-<%= userData._id %>" class="unseen"><%= userData.unreadMsgCount > 0 ? userData.unreadMsgCount : '' %></div> -->
                         </div>
                     <% }) %>
                 <% } else { %>
