@@ -5,21 +5,21 @@ const path = require('path');
 const app = express();
 // mongoose.connect('mongodb://127.0.0.1:27017/quakApp');
 
-mongoose.connect('mongodb://127.0.0.1:27017/quakApp')
-  .then(() => {
-    console.log('MongoDB connected successfully');
-  })
-  .catch((err) => {
-    console.error('MongoDB connection failed:', err);
-  });
+// mongoose.connect('mongodb://127.0.0.1:27017/quakApp')
+//   .then(() => {
+//     console.log('MongoDB connected successfully');
+//   })
+//   .catch((err) => {
+//     console.error('MongoDB connection failed:', err);
+//   });
 
-// if (process.env.MONGO_URI) {
-//   mongoose.connect(process.env.MONGO_URI)
-//     .then(() => console.log("MongoDB connected"))
-//     .catch(err => console.error("Mongo error:", err));
-// } else {
-//   console.log("MONGO_URI not found, skipping DB connection");
-// }
+ if (process.env.MONGO_URI) {
+   mongoose.connect(process.env.MONGO_URI)
+     .then(() => console.log("MongoDB connected"))
+     .catch(err => console.error("Mongo error:", err));
+ } else {
+   console.log("MONGO_URI not found, skipping DB connection");
+ }
 
 //const app = require('express')();
 const http = require('http').Server(app);
