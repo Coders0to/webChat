@@ -41,7 +41,6 @@ $(document).on('click', '#submit-btn', function(e) {
     }
 
     const formdata = new FormData(form[0]);
-    console.log('formdata register',formdata);
     $('#submit-btn').prop('disabled', true);
 
     $.ajax({

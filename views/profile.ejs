@@ -24,25 +24,30 @@
     <div class="info-card">
 
       <div class="top">
-        <h1 id="profileName"></h1>
-        <p id="profileAddress">📍Delhi India</p>
+        <h1 id="profileName1"><%= user.name %> <%= userDetails.age %></h1>
+        <p id="profileAddress"><%= user.location %></p>
       </div>
 
       <div class="status" id="onlineStatus">
-        
+          <% if (user.is_online == 1) { %>
+              <span class="online"></span>
+              <span>Online Now</span>
+          <% } else { %>
+              <span class="offline"></span>
+              <span>Offline</span>
+          <% } %>
       </div>
 
       <div class="bio">
-        <h3>Bio</h3>
         <h3 id="profileBio">Bio</h3>
-        <p><%= user.bio %></p>
+        <p><%= userDetails.bio %></p>
       </div>
 
       <div class="info-grid">
-        <div><strong>Height</strong><span><%= user.height %> 5,2</span></div>
-        <div><strong>Profession</strong><span><%= user.profession %></span></div>
-        <div><strong>Education</strong><span><%= user.education %></span></div>
-        <div><strong>Goal</strong><span><%= user.goal %></span></div>
+        <div><strong>Height</strong><span><%= userDetails.height %></span></div>
+        <div><strong>Profession</strong><span><%= userDetails.profession %></span></div>
+        <div><strong>Education</strong><span><%= userDetails.education %></span></div>
+        <div><strong>Goal</strong><span><%= userDetails.goal %></span></div>
       </div>
 
       <div class="interest">

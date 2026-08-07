@@ -1,5 +1,7 @@
  const User = require('../models/userModel');
  const Chat = require('../models/chatModel');
+ const UserProfileImg = require('../models/userProfileImg');
+
  var mongoose = require('mongoose');
  const Group = require('../models/groupModel');
  const likeModel = require('../models/likeModel');
@@ -734,11 +736,17 @@
 
    const profilePage = async (req, res) => {
     try {
-        const user = req.session.user; // ya JWT se
-
+        const userId = req.params.userId;
+        console.log("userId",userId);
+        // const userRecord = req.session.user; 
+        const user = await User.findById(userId); 
+        
+        const userDetails = await userDetail.findOne({user_id:userId});
+        console.log('user userDetails details data',userDetails);
         res.render('profile', {
         title: 'Profile',
         user,
+        userDetails:userDetails,
         currentRoute: 'loadMatchesTem'  
         });
 
@@ -774,6 +782,7 @@
     try {
         console.log('REQ BODY', req.body);
         const userId = req.session.user._id;
+        console.log("FILES", req.files);
         const userData = {
         user_id: req.session.user._id, 
         name: req.body.name,
@@ -789,6 +798,17 @@
         };
         const resultUser = await User.findOneAndUpdate({_id:userId},{$set:userData},{upsert: true, new:true});
         const result = await userDetail.findOneAndUpdate({user_id:userId},{$set:userData},{upsert: true, new:true});
+
+         // Save Multiple Images
+        if (req.files && req.files.length > 0) {
+
+            const images = req.files.map(file => ({
+                user_id: userId,
+                image: file.path
+            }));
+
+            await UserProfileImg.insertMany(images);
+        }
         res.json({
         success: true,
         data: result

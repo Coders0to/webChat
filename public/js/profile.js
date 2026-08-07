@@ -11,8 +11,11 @@ function getSpecUserProfile(userId) {
     success(res) {
         if(res.success){
             const responseData = res.data;
+            console.log("data",responseData); 
+            //alert(responseData.age);
             $('#profileImg').attr('src', responseData.image);
             $('#profileBio').text(responseData.bio);
+            $('#profileAddress').text('📍 '+responseData.location);
             $('#profileName').html(
                                 `${responseData.name} <span id="profileAge">${responseData.age ? ', '+ responseData.age : ''}</span>`
                                 );
@@ -57,9 +60,14 @@ photosInput.addEventListener('change', function () {
 //code for profile js
 $(document).on('click', '#saveProfile', function(e) {
   e.preventDefault();
-  
   const form = $('#profileForm')[0];
   const userFormData = new FormData(form);
+    // File input form ke bahar hai
+    const files = $('#photos')[0].files;
+    for (let i = 0; i < files.length; i++) {
+        userFormData.append('moreImg', files[i]);
+    }
+  
   console.log([...userFormData.entries()]);
   $.ajax({
     url:'updateProfile',
@@ -75,3 +83,24 @@ $(document).on('click', '#saveProfile', function(e) {
     }
   })
 });
+
+function saveProfileImg(input) {
+    let formData = new FormData();
+    for (let i = 0; i < input.files.length; i++) {
+        formData.append('photos[]', input.files[i]);
+    }
+
+    $.ajax({
+        url: '/updateProfileImg',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            console.log(response);
+        },
+        error: function(xhr) {
+            console.log(xhr.responseText);
+        }
+    });
+}

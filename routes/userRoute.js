@@ -30,6 +30,7 @@ const auth = require('../middlewares/auth')
 user_route.get('/register', auth.isLogout , userController.registerLoad);
 user_route.post('/register',upload.single('image'), userController.register);
 
+
 user_route.get('/create-group', userController.createGroup);
 user_route.post('/save-group', userController.saveGroup);
 
