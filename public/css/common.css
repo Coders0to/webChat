@@ -1041,317 +1041,696 @@
     }
 
 /* chat page css */
-.dating-chat-page .chat-wrapper{
-    width:80%;
-    max-width:1200px;
-    height:90vh;
-    background:rgba(255,255,255,0.25);
-    backdrop-filter:blur(15px);
-    border-radius:20px;
-    display:flex;
-    overflow:hidden;
-    box-shadow:0 10px 40px rgba(0,0,0,0.2);
+/* =========================================
+   MAIN CHAT WRAPPER
+========================================= */
+
+.dating-chat-page {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.dating-chat-page *,
+.dating-chat-page *::before,
+.dating-chat-page *::after {
+    box-sizing: border-box;
+}
+
+.dating-chat-page .chat-wrapper {
+    width: 80%;
+    max-width: 1200px;
+    height: 90vh;
+
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(15px);
+
+    border-radius: 20px;
+
+    display: flex;
+    overflow: hidden;
+
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 }
 
 
-/* =========================
+/* =========================================
    LEFT SIDEBAR
-========================= */
+========================================= */
 
-.dating-chat-page .sidebar-panel{
-    width:30%;
-    background:linear-gradient(180deg, #c46139, #5d253d);
-    padding:15px;
-    color:#fff;
-    overflow-y:auto;
-}
+.dating-chat-page .sidebar-panel {
+    width: 30%;
 
-.dating-chat-page .search input{
-    width:100%;
-    padding:10px 15px;
-    border-radius:20px;
-    border:none;
-    outline:none;
-    box-sizing:border-box;
-}
+    background: linear-gradient(
+        180deg,
+        #c46139,
+        #5d253d
+    );
 
-.dating-chat-page .user{
-    display:flex;
-    align-items:center;
-    margin-top:15px;
-    background:rgba(255,255,255,0.2);
-    padding:10px;
-    border-radius:12px;
-    cursor:pointer;
-}
+    padding: 15px;
 
-.dating-chat-page .user img{
-    width:45px;
-    height:45px;
-    min-width:45px;
-    border-radius:50%;
-    object-fit:cover;
-}
+    color: #fff;
 
-.dating-chat-page .user-info{
-    flex:1;
-    margin-left:10px;
-    min-width:0;
-}
-
-.dating-chat-page .user-info h4{
-    margin:0;
-    font-size:15px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.dating-chat-page .user-info p{
-    margin:0;
-    font-size:12px;
-    opacity:0.8;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.dating-chat-page .unseen{
-    background:#fff;
-    color:#ff2f92;
-    font-size:12px;
-    padding:4px 8px;
-    border-radius:50%;
-    flex-shrink:0;
+    overflow-y: auto;
 }
 
 
-/* =========================
+/* SEARCH */
+
+.dating-chat-page .search {
+    width: 100%;
+}
+
+.dating-chat-page .search input {
+    width: 100%;
+
+    padding: 10px 15px;
+
+    border-radius: 20px;
+    border: none;
+    outline: none;
+
+    font-size: 14px;
+}
+
+
+/* USER */
+
+.dating-chat-page .user {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    margin-top: 15px;
+
+    background: rgba(255, 255, 255, 0.2);
+
+    padding: 10px;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.dating-chat-page .user:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+
+/* USER IMAGE */
+
+.dating-chat-page .user img {
+    width: 45px;
+    height: 45px;
+
+    min-width: 45px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+}
+
+
+/* USER INFO */
+
+.dating-chat-page .user-info {
+    flex: 1;
+
+    min-width: 0;
+
+    margin-left: 10px;
+}
+
+.dating-chat-page .user-info h4 {
+    margin: 0;
+
+    font-size: 15px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dating-chat-page .user-info p {
+    margin: 2px 0 0;
+
+    font-size: 12px;
+
+    opacity: 0.8;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* UNSEEN */
+
+.dating-chat-page .unseen {
+    background: #fff;
+
+    color: #ff2f92;
+
+    font-size: 12px;
+
+    min-width: 25px;
+    height: 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 4px 8px;
+
+    border-radius: 50%;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================
    RIGHT CHAT AREA
-========================= */
+========================================= */
 
-.dating-chat-page .chat-area{
-    width:70%;
-    display:flex;
-    flex-direction:column;
-    min-width:0;
-}
+.dating-chat-page .chat-area {
+    width: 70%;
 
-.dating-chat-page .chat-header{
-    padding:15px;
-    background:rgba(255,255,255,0.5);
-    display:flex;
-    align-items:center;
-    flex-shrink:0;
-}
+    display: flex;
+    flex-direction: column;
 
-.dating-chat-page .chat-header img{
-    width:45px;
-    height:45px;
-    border-radius:50%;
-    object-fit:cover;
-}
-
-.dating-chat-page .chat-header h3{
-    margin:0 0 0 10px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.dating-chat-page .messages{
-    flex:1;
-    padding:15px;
-    overflow-y:auto;
-    min-height:0;
-}
-
-.dating-chat-page .msg{
-    max-width:60%;
-    margin-bottom:10px;
-    padding:10px 15px;
-    border-radius:15px;
-    word-wrap:break-word;
-    overflow-wrap:anywhere;
-}
-
-.dating-chat-page .sent{
-    background:#ff5f9e;
-    color:#fff;
-    margin-left:auto;
-}
-
-.dating-chat-page .received{
-    background:#fff;
-}
-
-.dating-chat-page .chat-input{
-    display:flex;
-    padding:10px;
-    background:rgba(255,255,255,0.6);
-    flex-shrink:0;
-}
-
-.dating-chat-page .chat-input input{
-    flex:1;
-    min-width:0;
-    padding:10px 15px;
-    border-radius:20px;
-    border:none;
-    outline:none;
-}
-
-.dating-chat-page .chat-input button{
-    background:#ff5f9e;
-    border:none;
-    color:#fff;
-    padding:10px 15px;
-    border-radius:50%;
-    margin-left:10px;
-    cursor:pointer;
-    flex-shrink:0;
+    min-width: 0;
 }
 
 
-/* =========================
+/* =========================================
+   CHAT HEADER
+========================================= */
+
+.dating-chat-page .chat-header {
+    width: 100%;
+
+    min-height: 75px;
+
+    padding: 15px;
+
+    background: rgba(255, 255, 255, 0.5);
+
+    display: flex;
+    align-items: center;
+
+    flex-shrink: 0;
+}
+
+
+/* CHAT HEADER IMAGE */
+
+.dating-chat-page .chat-header img {
+    width: 45px;
+    height: 45px;
+
+    min-width: 45px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+}
+
+
+/* CHAT NAME */
+
+.dating-chat-page .chat-header h3 {
+    margin: 0 0 0 10px;
+
+    font-size: 18px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+/* MOBILE BACK BUTTON */
+
+.dating-chat-page .mobile-back {
+    display: none;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 28px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    margin-right: 8px;
+
+    padding: 0;
+
+    color: #333;
+}
+
+
+/* =========================================
+   MESSAGES
+========================================= */
+
+.dating-chat-page .messages {
+    flex: 1;
+
+    min-height: 0;
+
+    padding: 15px;
+
+    overflow-y: auto;
+}
+
+
+/* MESSAGE */
+
+.dating-chat-page .msg {
+    max-width: 60%;
+
+    width: fit-content;
+
+    margin-bottom: 10px;
+
+    padding: 10px 15px;
+
+    border-radius: 15px;
+
+    word-break: break-word;
+
+    overflow-wrap: anywhere;
+
+    font-size: 15px;
+}
+
+
+/* SENT */
+
+.dating-chat-page .sent {
+    background: #ff5f9e;
+
+    color: #fff;
+
+    margin-left: auto;
+}
+
+
+/* RECEIVED */
+
+.dating-chat-page .received {
+    background: #fff;
+
+    color: #333;
+
+    margin-right: auto;
+}
+
+
+/* =========================================
+   CHAT INPUT
+========================================= */
+
+.dating-chat-page .chat-input {
+    width: 100%;
+
+    display: flex;
+
+    padding: 10px;
+
+    background: rgba(255, 255, 255, 0.6);
+
+    flex-shrink: 0;
+}
+
+
+/* INPUT */
+
+.dating-chat-page .chat-input input {
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 10px 15px;
+
+    border-radius: 20px;
+
+    border: none;
+
+    outline: none;
+
+    font-size: 15px;
+}
+
+
+/* SEND BUTTON */
+
+.dating-chat-page .chat-input button {
+    width: 42px;
+    height: 42px;
+
+    background: #ff5f9e;
+
+    border: none;
+
+    color: #fff;
+
+    padding: 10px;
+
+    border-radius: 50%;
+
+    margin-left: 10px;
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================
    TABLET
-========================= */
+========================================= */
 
-@media (max-width: 992px){
+@media (max-width: 992px) {
 
-    .dating-chat-page .chat-wrapper{
-        width:92%;
-        height:88vh;
+    .dating-chat-page .chat-wrapper {
+        width: 92%;
+        height: 90vh;
     }
 
-    .dating-chat-page .sidebar-panel{
-        width:35%;
+    .dating-chat-page .sidebar-panel {
+        width: 35%;
     }
 
-    .dating-chat-page .chat-area{
-        width:65%;
+    .dating-chat-page .chat-area {
+        width: 65%;
     }
 
-    .dating-chat-page .msg{
-        max-width:70%;
+    .dating-chat-page .msg {
+        max-width: 70%;
     }
 }
 
 
-/* =========================
+/* =========================================
    MOBILE
-========================= */
+========================================= */
 
-@media (max-width: 768px){
+@media (max-width: 768px) {
 
-    .dating-chat-page .chat-wrapper{
-        width:100%;
-        height:100vh;
-        min-height:100vh;
-        border-radius:0;
-        flex-direction:column;
+    /* MAIN PAGE */
+
+    .dating-chat-page {
+        width: 100%;
+
+        height: 100dvh;
+        min-height: 100dvh;
+
+        padding: 0;
+
+        display: block;
     }
 
-    .dating-chat-page .sidebar-panel{
-        width:100%;
-        height:35%;
-        padding:10px;
-        box-sizing:border-box;
+
+    /* MAIN WRAPPER */
+
+    .dating-chat-page .chat-wrapper {
+        width: 100%;
+
+        height: 100dvh;
+        min-height: 100dvh;
+
+        max-width: none;
+
+        border-radius: 0;
+
+        display: block;
+
+        overflow: hidden;
     }
 
-    .dating-chat-page .chat-area{
-        width:100%;
-        height:65%;
+
+    /* =====================================
+       USER LIST
+    ===================================== */
+
+    .dating-chat-page .sidebar-panel {
+        width: 100%;
+
+        height: 100%;
+
+        padding: 15px;
+
+        overflow-y: auto;
+
+        display: block;
     }
 
-    .dating-chat-page .user{
-        margin-top:8px;
-        padding:8px;
+
+    /* =====================================
+       CHAT
+    ===================================== */
+
+    .dating-chat-page .chat-area {
+        width: 100%;
+
+        height: 100%;
+
+        display: none;
+
+        flex-direction: column;
     }
 
-    .dating-chat-page .user img{
-        width:40px;
-        height:40px;
-        min-width:40px;
+
+    /* =====================================
+       WHEN CHAT IS OPEN
+    ===================================== */
+
+    .dating-chat-page .chat-wrapper.chat-open .sidebar-panel {
+        display: none;
     }
 
-    .dating-chat-page .chat-header{
-        padding:10px;
+    .dating-chat-page .chat-wrapper.chat-open .chat-area {
+        display: flex;
     }
 
-    .dating-chat-page .chat-header img{
-        width:40px;
-        height:40px;
+
+    /* =====================================
+       USER
+    ===================================== */
+
+    .dating-chat-page .user {
+        margin-top: 12px;
+
+        padding: 10px;
     }
 
-    .dating-chat-page .messages{
-        padding:10px;
+
+    .dating-chat-page .user img {
+        width: 45px;
+        height: 45px;
+
+        min-width: 45px;
     }
 
-    .dating-chat-page .msg{
-        max-width:80%;
-        padding:9px 12px;
+
+    .dating-chat-page .user-info h4 {
+        font-size: 16px;
     }
 
-    .dating-chat-page .chat-input{
-        padding:8px;
+    .dating-chat-page .user-info p {
+        font-size: 13px;
+    }
+
+
+    /* =====================================
+       CHAT HEADER
+    ===================================== */
+
+    .dating-chat-page .chat-header {
+        min-height: 65px;
+
+        height: 65px;
+
+        padding: 10px 15px;
+    }
+
+
+    .dating-chat-page .chat-header img {
+        width: 42px;
+        height: 42px;
+
+        min-width: 42px;
+    }
+
+
+    .dating-chat-page .chat-header h3 {
+        font-size: 18px;
+    }
+
+
+    /* BACK BUTTON */
+
+    .dating-chat-page .mobile-back {
+        display: block;
+    }
+
+
+    /* =====================================
+       MESSAGES
+    ===================================== */
+
+    .dating-chat-page .messages {
+        flex: 1;
+
+        min-height: 0;
+
+        padding: 12px;
+
+        overflow-y: auto;
+    }
+
+
+    .dating-chat-page .msg {
+        max-width: 82%;
+
+        padding: 10px 14px;
+
+        font-size: 15px;
+
+        border-radius: 15px;
+    }
+
+
+    /* =====================================
+       CHAT INPUT
+    ===================================== */
+
+    .dating-chat-page .chat-input {
+        padding: 10px;
+
+        min-height: 62px;
+    }
+
+
+    .dating-chat-page .chat-input input {
+        font-size: 15px;
+
+        padding: 10px 14px;
+    }
+
+
+    .dating-chat-page .chat-input button {
+        width: 42px;
+        height: 42px;
+
+        margin-left: 7px;
     }
 }
 
 
-/* =========================
+/* =========================================
    SMALL MOBILE
-========================= */
+========================================= */
 
-@media (max-width: 480px){
+@media (max-width: 480px) {
 
-    .dating-chat-page .chat-wrapper{
-        height:100dvh;
-        min-height:100dvh;
+    .dating-chat-page .sidebar-panel {
+        padding: 12px;
     }
 
-    .dating-chat-page .sidebar-panel{
-        height:38%;
+
+    .dating-chat-page .user {
+        padding: 10px;
+
+        margin-top: 10px;
+
+        border-radius: 12px;
     }
 
-    .dating-chat-page .chat-area{
-        height:62%;
+
+    .dating-chat-page .user img {
+        width: 45px;
+        height: 45px;
     }
 
-    .dating-chat-page .search input{
-        padding:9px 13px;
-        font-size:14px;
+
+    .dating-chat-page .user-info {
+        margin-left: 10px;
     }
 
-    .dating-chat-page .user-info h4{
-        font-size:14px;
+
+    .dating-chat-page .user-info h4 {
+        font-size: 15px;
     }
 
-    .dating-chat-page .user-info p{
-        font-size:11px;
+
+    .dating-chat-page .user-info p {
+        font-size: 12px;
     }
 
-    .dating-chat-page .unseen{
-        font-size:10px;
-        padding:3px 7px;
+
+    .dating-chat-page .chat-header {
+        height: 60px;
+
+        min-height: 60px;
+
+        padding: 8px 12px;
     }
 
-    .dating-chat-page .chat-header h3{
-        font-size:16px;
+
+    .dating-chat-page .chat-header img {
+        width: 40px;
+        height: 40px;
     }
 
-    .dating-chat-page .msg{
-        max-width:85%;
-        font-size:14px;
+
+    .dating-chat-page .chat-header h3 {
+        font-size: 16px;
     }
 
-    .dating-chat-page .chat-input input{
-        padding:9px 13px;
-        font-size:14px;
+
+    .dating-chat-page .messages {
+        padding: 10px;
     }
 
-    .dating-chat-page .chat-input button{
-        padding:9px 12px;
-        margin-left:6px;
+
+    .dating-chat-page .msg {
+        max-width: 85%;
+
+        font-size: 14px;
+
+        padding: 9px 12px;
+    }
+
+
+    .dating-chat-page .chat-input {
+        padding: 8px;
+    }
+
+
+    .dating-chat-page .chat-input input {
+        font-size: 14px;
+
+        padding: 9px 13px;
+    }
+
+
+    .dating-chat-page .chat-input button {
+        width: 40px;
+        height: 40px;
+
+        padding: 8px;
     }
 }

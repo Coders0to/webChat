@@ -112,6 +112,7 @@ var domainUrl = window.location.protocol + "//" + window.location.host;
         });
     });
     socket.on('loadNewChat',function(data){
+        alert('load new chat alert');
         // if (!$('#chatPanel').hasClass('show')) {
         //         alert("calling");
         //         startTone();
@@ -125,7 +126,7 @@ var domainUrl = window.location.protocol + "//" + window.location.host;
             let html = `<div class="distance-user-chat bubble me" id='`+data._id+`'>
                                     <p>`+data.message+`</p>
                                 </div>`;
-                    $('#chatBody').append(html);
+                    //$('#chatBody').append(html);
                     scrollChat();
 
         }

@@ -39,6 +39,10 @@
             <!-- CHAT AREA -->
             <div class="chat-area">
                 <div class="chat-header" id="chatHeader">
+                    <!-- Mobile Back Button -->
+                    <button type="button" class="mobile-back" id="mobileBack">
+                         ⬅
+                    </button>
                     <img src="https://i.pravatar.cc/150?img=32">
                     <h3 id="chatName">Select User</h3>
                 </div>
@@ -49,6 +53,9 @@
                     <input type="text" id="msgInput" placeholder="Type your message...">
                     <button onclick="sendMessage()">
                         <i class="fas fa-paper-plane"></i>
+                    </button>
+                     <button type="button">
+                        ➤
                     </button>
                 </div>
             </div>
@@ -80,8 +87,13 @@ $(document).ready(function () {
 });
 let clickedId = '';
 // USER CLICK → LOAD CHAT
-$(document).on('click','.user',function(){
+//$(document).on('click','.user',function(){
+
+$(document).on('click', '.dating-chat-page .user', function () {
     
+    // MOBILE PAR CHAT OPEN
+    $('.dating-chat-page .chat-wrapper').addClass('chat-open');
+
     let userId = $(this).data('id');
     let userName = $(this).data('name');
     let userImg = $(this).data('img');
@@ -102,7 +114,11 @@ $(document).on('click','.user',function(){
     });
 
 });
+$(document).on('click', '#mobileBack', function () {
 
+    $('.dating-chat-page .chat-wrapper').removeClass('chat-open');
+
+});
 // LOAD OLD CHATS
 socket.on('loaChats',function(loadchat,userName,userImg){
 
