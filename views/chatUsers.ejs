@@ -56,6 +56,9 @@
         </div>
     </div>
 </main>
+<audio id="msgTone" loop>
+    <source src="/public/voice/message.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 let sender_id = '<%= user._id %>';
@@ -181,9 +184,18 @@ function sendMessage(){
 
 // RECEIVE NEW MESSAGE
 socket.on('loadNewChat',function(data){
-
     if(sender_id == data.receiver_id && receiver_id == data.sender_id){
-
+        //code for ringtone
+        var path = window.location.pathname.substring(1);
+        alert(path);
+        if (path == 'users') {
+            alert("in");
+            startTone();
+            setTimeout(() => {
+                stopTone();   
+            }, 3000);
+        }
+        //end code for ringtone
         let html = `<div class="msg received" id="${data._id}">
                         ${data.message}
                     </div>`;
@@ -198,10 +210,41 @@ function scrollChat(){
     let msgBox = document.getElementById('messages');
     msgBox.scrollTop = msgBox.scrollHeight;
 }
+
+let tonePlaying = false;
+
+function startTone() {
+
+    if (tonePlaying) return;
+
+    const audio = document.getElementById("msgTone");
+
+    audio.currentTime = 0;
+
+    audio.play()
+        .then(() => {
+            tonePlaying = true;
+
+            setTimeout(() => {
+                stopTone();
+            }, 3000);
+
+        })
+        .catch(err => console.log(err));
+}
+
+function stopTone() {
+    const audio = document.getElementById("msgTone");
+
+    audio.pause();
+    audio.currentTime = 0;
+    tonePlaying = false;
+}
 </script>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="public/js/chat-list.js"></script>
 <script src="public/js/common.js"></script>
+
 
 <%- include('layouts/footer.ejs') %>
