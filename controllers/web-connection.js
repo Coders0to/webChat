@@ -1,0 +1,177 @@
+let sender_id = '<%= user._id %>';
+let receiver_id;
+
+// SOCKET CONNECT
+var socket = io('/user-namespace',{
+    auth: {token:'<%= user._id %>'}
+});
+
+$(document).ready(function () {
+
+    let firstUser = $('.user').first();
+
+    if (firstUser.length) {
+        firstUser.trigger('click'); // auto click
+    }
+
+});
+let clickedId = '';
+// USER CLICK → LOAD CHAT
+$(document).on('click','.user',function(){
+    
+    let userId = $(this).data('id');
+    let userName = $(this).data('name');
+    let userImg = $(this).data('img');
+    
+    receiver_id = userId;
+    clickedId = receiver_id;
+    $('#unseen-'+receiver_id).text(0);
+    // Update header
+    $('#chatName').text(userName);
+    $('#chatHeader img').attr('src',userImg);
+
+    // Load chat
+    socket.emit('existsChat',{
+        sender_id: sender_id,
+        receiver_id: receiver_id,
+        userName: userName,
+        userImg: userImg
+    });
+
+});
+
+// LOAD OLD CHATS
+socket.on('loaChats',function(loadchat,userName,userImg){
+
+    $('#messages').html('');
+    
+    let chats = loadchat.chats;
+
+    chats.forEach(function(chat){
+
+        let className = (chat.sender_id == sender_id) ? 'msg sent' : 'msg received';
+
+        let html = `<div class="${className}" id="${chat._id}">
+                        ${chat.message}
+                    </div>`;
+
+        $('#messages').append(html);
+    });
+
+    scrollChat();
+});
+
+socket.on('unreadMessageCount', function(data) {
+    if(clickedId!=data.sender_id){
+        $('#unseen-'+data.sender_id).text(data.unread_count);
+        socket.emit('updateUnreadMsgStatus',{
+            sender_id: sender_id,
+            receiver_id: clickedId,
+        });
+    }
+    console.log("unread_count:", data.unread_count);
+
+    console.log("Unread Count:", data);
+});
+
+$(document).ready(function() {
+
+    $('#msgInput').on('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+
+});
+
+// SEND MESSAGE
+function sendMessage(){
+
+    let message = $('#msgInput').val();
+
+    if(message.trim() == '') return;
+
+    $.ajax({
+        url:'/save-chat',
+        type:'post',
+        data:{
+            sender_id: sender_id,
+            receiver_id: receiver_id,
+            message: message
+        },
+        success:function(response){
+
+            if(response.success){
+
+                $('#msgInput').val('');
+
+                let html = `<div class="msg sent" id="${response.data._id}">
+                                ${response.data.message}
+                            </div>`;
+
+                $('#messages').append(html);
+
+                socket.emit('newChat',response.data);
+                scrollChat();
+            }
+        }
+    });
+}
+
+// RECEIVE NEW MESSAGE
+socket.on('loadNewChat',function(data){
+    if(sender_id == data.receiver_id && receiver_id == data.sender_id){
+        //code for ringtone
+        var path = window.location.pathname.substring(1);
+        if (path == 'users') {
+            startTone();
+            setTimeout(() => {
+                stopTone();   
+            }, 3000);
+        }
+        //end code for ringtone
+        let html = `<div class="msg received" id="${data._id}">
+                        ${data.message}
+                    </div>`;
+
+        $('#messages').append(html);
+        scrollChat();
+    }
+});
+
+// SCROLL CHAT
+function scrollChat(){
+    let msgBox = document.getElementById('messages');
+    msgBox.scrollTop = msgBox.scrollHeight;
+}
+
+let tonePlaying = false;
+
+function startTone() {
+
+    if (tonePlaying) return;
+
+    const audio = document.getElementById("msgTone");
+
+    audio.currentTime = 0;
+
+    audio.play()
+        .then(() => {
+            tonePlaying = true;
+
+            setTimeout(() => {
+                stopTone();
+            }, 3000);
+
+        })
+        .catch(err => console.log(err));
+}
+
+function stopTone() {
+    const audio = document.getElementById("msgTone");
+
+    audio.pause();
+    audio.currentTime = 0;
+    tonePlaying = false;
+}
