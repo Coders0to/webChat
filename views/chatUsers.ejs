@@ -203,9 +203,7 @@ socket.on('loadNewChat',function(data){
     if(sender_id == data.receiver_id && receiver_id == data.sender_id){
         //code for ringtone
         var path = window.location.pathname.substring(1);
-        alert(path);
         if (path == 'users') {
-            alert("in");
             startTone();
             setTimeout(() => {
                 stopTone();   
