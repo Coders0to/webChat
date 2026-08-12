@@ -112,7 +112,6 @@ var domainUrl = window.location.protocol + "//" + window.location.host;
         });
     });
     socket.on('loadNewChat',function(data){
-        alert('load new chat alert');
         // if (!$('#chatPanel').hasClass('show')) {
         //         alert("calling");
         //         startTone();
