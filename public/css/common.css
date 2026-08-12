@@ -326,6 +326,815 @@
 /* small helpers */
 .small-muted{color:var(--muted);font-size:13px}
 
+/* =========================================================
+   RESPONSIVE FIX
+   Desktop design remains unchanged
+========================================================= */
+
+
+/* =========================================================
+   TABLET
+   769px - 1120px
+========================================================= */
+
+@media (max-width: 1120px) and (min-width: 769px) {
+
+    /* Main content */
+    .main-content {
+        width: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+
+    /* Main layout */
+    .app-wrap {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px;
+
+        display: grid;
+
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+        gap: 20px;
+
+        margin: 0 auto;
+    }
+
+
+    /* Left card */
+    .left {
+        width: 100%;
+
+        min-height: 650px;
+
+        padding: 18px;
+
+        border-radius: 20px;
+
+        overflow: hidden;
+    }
+
+
+    /* Card viewport */
+    .card-viewport {
+        width: 100%;
+
+        height: 560px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+    }
+
+
+    /* Card stack */
+    .card-stack {
+        width: min(100%, 360px);
+
+        height: 540px;
+    }
+
+
+    /* Profile image */
+    .card .photo .profile-img {
+        width: 100%;
+
+        height: 480px;
+
+        object-fit: cover;
+
+        display: block;
+    }
+
+
+    /* Right panel */
+    .right {
+        width: 100%;
+
+        min-height: 650px;
+
+        padding: 18px;
+
+        border-radius: 20px;
+    }
+
+
+    /* Recent list */
+    .recent-list {
+        max-height: 480px;
+    }
+
+
+    /* Chat panel */
+    .chat-panel {
+        width: 400px;
+
+        max-width: calc(100vw - 40px);
+
+        right: -420px;
+    }
+
+    .chat-panel.open {
+        right: 20px;
+    }
+
+
+    /* Help button */
+    .help-fab {
+        right: 25px;
+        bottom: 25px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   481px - 768px
+========================================================= */
+
+@media (max-width: 768px) {
+
+    /* -----------------------------------------
+       MAIN CONTENT
+    ----------------------------------------- */
+
+    .main-content {
+        width: 100%;
+
+        overflow-x: hidden;
+
+        overflow-y: auto;
+
+        padding: 0;
+    }
+
+
+    /* -----------------------------------------
+       MAIN APP WRAPPER
+    ----------------------------------------- */
+
+    .app-wrap {
+        width: 100%;
+
+        max-width: 100%;
+
+        padding: 15px;
+
+        margin: 0;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+
+    /* -----------------------------------------
+       LEFT CARD
+    ----------------------------------------- */
+
+    .left {
+        width: 100%;
+
+        min-height: auto;
+
+        padding: 15px;
+
+        border-radius: 18px;
+
+        overflow: hidden;
+    }
+
+
+    /* -----------------------------------------
+       CARD VIEWPORT
+    ----------------------------------------- */
+
+    .card-viewport {
+
+        width: 100%;
+
+        height: auto;
+
+        min-height: 0;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+    }
+
+
+    /* -----------------------------------------
+       CARD STACK
+    ----------------------------------------- */
+
+    .card-stack {
+
+        width: 100%;
+
+        max-width: 360px;
+
+        height: auto;
+
+        aspect-ratio: 0.70;
+
+        position: relative;
+    }
+
+
+    /* -----------------------------------------
+       CARD
+    ----------------------------------------- */
+
+    .card {
+
+        width: 100%;
+
+        height: 100%;
+
+        border-radius: 15px;
+    }
+
+
+    /* -----------------------------------------
+       PROFILE IMAGE
+    ----------------------------------------- */
+
+    .card .photo {
+
+        width: 100%;
+
+        height: 68%;
+
+        overflow: hidden;
+    }
+
+
+    .card .photo .profile-img {
+
+        width: 100%;
+
+        height: 100%;
+
+        object-fit: cover;
+
+        display: block;
+    }
+
+
+    /* -----------------------------------------
+       CARD INFO
+    ----------------------------------------- */
+
+    .card .info {
+
+        padding: 12px;
+
+    }
+
+
+    .card h3 {
+
+        font-size: 18px;
+
+    }
+
+
+    .meta {
+
+        font-size: 13px;
+
+    }
+
+
+    .bio {
+
+        font-size: 13px;
+
+        margin-top: 5px;
+
+    }
+
+
+    /* -----------------------------------------
+       CARD BADGE
+    ----------------------------------------- */
+
+    .card .badge {
+
+        left: 10px;
+
+        top: 10px;
+
+        padding: 5px 9px;
+
+        font-size: 12px;
+    }
+
+
+    /* -----------------------------------------
+       CONTROLS
+    ----------------------------------------- */
+
+    .controls {
+
+        width: 100%;
+
+        gap: 10px;
+
+        margin-top: 15px;
+
+        flex-wrap: wrap;
+    }
+
+
+    .circle-btn {
+
+        width: 52px;
+
+        height: 52px;
+
+        font-size: 18px;
+    }
+
+
+    .super {
+
+        width: 62px;
+
+        height: 62px;
+    }
+
+
+    /* -----------------------------------------
+       RIGHT PANEL
+    ----------------------------------------- */
+
+    .right {
+
+        width: 100%;
+
+        min-height: 400px;
+
+        padding: 16px;
+
+        border-radius: 18px;
+    }
+
+
+    .discover h2 {
+
+        font-size: 22px;
+
+    }
+
+
+    .discover p {
+
+        font-size: 13px;
+
+    }
+
+
+    /* -----------------------------------------
+       RECENT LIST
+    ----------------------------------------- */
+
+    .recent-list {
+
+        max-height: 400px;
+
+        overflow-y: auto;
+
+        padding-right: 3px;
+    }
+
+
+    .recent-item {
+
+        padding: 8px;
+
+    }
+
+
+    .recent-item img {
+
+        width: 48px;
+
+        height: 48px;
+
+    }
+
+
+    /* -----------------------------------------
+       CHAT PANEL
+    ----------------------------------------- */
+
+    .chat-panel {
+
+        width: calc(100vw - 20px);
+
+        max-width: none;
+
+        height: min(500px, calc(100vh - 80px));
+
+        right: calc(-100vw - 20px);
+
+        top: 60px;
+
+        border-radius: 16px;
+    }
+
+
+    .chat-panel.open {
+
+        right: 10px;
+
+    }
+
+
+    /* -----------------------------------------
+       CHAT BODY
+    ----------------------------------------- */
+
+    .chat-body {
+
+        height: calc(100% - 125px);
+
+        overflow-y: auto;
+    }
+
+
+    /* -----------------------------------------
+       CHAT INPUT
+    ----------------------------------------- */
+
+    .chat-input {
+
+        width: 100%;
+
+        display: flex;
+
+        gap: 6px;
+
+        padding: 8px;
+
+    }
+
+
+    .chat-input input {
+
+        min-width: 0;
+
+        width: 100%;
+
+        padding: 10px;
+
+    }
+
+
+    .send-btn {
+
+        flex-shrink: 0;
+
+        padding: 10px 12px;
+
+    }
+
+
+    /* -----------------------------------------
+       HELP BUTTON
+    ----------------------------------------- */
+
+    .help-fab {
+
+        width: 50px;
+
+        height: 50px;
+
+        right: 15px;
+
+        bottom: 15px;
+
+        font-size: 20px;
+
+    }
+
+
+    /* -----------------------------------------
+       HELP MODAL
+    ----------------------------------------- */
+
+    .help-card {
+
+        width: calc(100vw - 30px);
+
+        max-width: 360px;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   480px and below
+========================================================= */
+
+@media (max-width: 480px) {
+
+    /* -----------------------------------------
+       APP WRAPPER
+    ----------------------------------------- */
+
+    .app-wrap {
+
+        padding: 10px;
+
+        gap: 12px;
+
+    }
+
+
+    /* -----------------------------------------
+       LEFT
+    ----------------------------------------- */
+
+    .left {
+
+        padding: 10px;
+
+        border-radius: 15px;
+
+    }
+
+
+    /* -----------------------------------------
+       CARD
+    ----------------------------------------- */
+
+    .card-stack {
+
+        width: 100%;
+
+        max-width: 330px;
+
+        aspect-ratio: 0.70;
+
+    }
+
+
+    .card {
+
+        border-radius: 13px;
+
+    }
+
+
+    /* -----------------------------------------
+       PROFILE IMAGE
+    ----------------------------------------- */
+
+    .card .photo {
+
+        height: 67%;
+
+    }
+
+
+    /* -----------------------------------------
+       CARD INFO
+    ----------------------------------------- */
+
+    .card .info {
+
+        padding: 10px;
+
+    }
+
+
+    .card h3 {
+
+        font-size: 17px;
+
+    }
+
+
+    .meta {
+
+        font-size: 12px;
+
+    }
+
+
+    .bio {
+
+        font-size: 12px;
+
+    }
+
+
+    /* -----------------------------------------
+       CONTROLS
+    ----------------------------------------- */
+
+    .controls {
+
+        gap: 7px;
+
+        margin-top: 10px;
+
+    }
+
+
+    .circle-btn {
+
+        width: 45px;
+
+        height: 45px;
+
+        font-size: 16px;
+
+    }
+
+
+    .super {
+
+        width: 55px;
+
+        height: 55px;
+
+    }
+
+
+    /* -----------------------------------------
+       RIGHT
+    ----------------------------------------- */
+
+    .right {
+
+        padding: 13px;
+
+        min-height: 350px;
+
+    }
+
+
+    .discover h2 {
+
+        font-size: 20px;
+
+    }
+
+
+    .discover p {
+
+        font-size: 12px;
+
+    }
+
+
+    /* -----------------------------------------
+       RECENT ITEM
+    ----------------------------------------- */
+
+    .recent-item {
+
+        gap: 9px;
+
+        padding: 7px;
+
+    }
+
+
+    .recent-item img {
+
+        width: 44px;
+
+        height: 44px;
+
+    }
+
+
+    .recent-item .rmeta {
+
+        font-size: 12px;
+
+    }
+
+
+    /* -----------------------------------------
+       CHAT
+    ----------------------------------------- */
+
+    .chat-panel {
+
+        width: calc(100vw - 10px);
+
+        right: calc(-100vw - 10px);
+
+        top: 55px;
+
+        height: calc(100dvh - 70px);
+
+        max-height: calc(100dvh - 70px);
+
+        border-radius: 14px;
+
+    }
+
+
+    .chat-panel.open {
+
+        right: 5px;
+
+    }
+
+
+    /* -----------------------------------------
+       HELP
+    ----------------------------------------- */
+
+    .help-fab {
+
+        width: 46px;
+
+        height: 46px;
+
+        right: 10px;
+
+        bottom: 10px;
+
+        font-size: 18px;
+
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   360px and below
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .app-wrap {
+
+        padding: 7px;
+
+    }
+
+
+    .left {
+
+        padding: 8px;
+
+    }
+
+
+    .card-stack {
+
+        max-width: 300px;
+
+    }
+
+
+    .circle-btn {
+
+        width: 40px;
+
+        height: 40px;
+
+        font-size: 14px;
+
+    }
+
+
+    .super {
+
+        width: 50px;
+
+        height: 50px;
+
+    }
+
+
+    .card h3 {
+
+        font-size: 16px;
+
+    }
+
+}
 
 
 /* css for when no profile */
