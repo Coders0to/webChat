@@ -1505,23 +1505,16 @@
 .dating-chat-page .chat-input input {
 
     flex: 1;
-
     min-width: 0;
-
+    color:#000;
     height: 45px;
-
     padding:
         10px
         15px;
-
     border-radius: 25px;
-
     border: none;
-
     outline: none;
-
     font-size: 15px;
-
 }
 
 
@@ -1532,17 +1525,11 @@
 .dating-chat-page .chat-input button {
 
     width: 45px;
-
     height: 45px;
-
     min-width: 45px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     background: #ff5f9e;
 
     border: none;

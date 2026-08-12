@@ -55,6 +55,10 @@ const userSchema = new mongoose.Schema({
     {
         type:String,
         default:'0',
+    },
+    is_ai: {
+        type: Boolean,
+        default: false
     }
 },
 {

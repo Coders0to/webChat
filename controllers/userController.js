@@ -62,6 +62,8 @@
             console.error(' REGISTER ERROR:', err);
             return res.status(500).json({ error: err.message });
         }
+        console.log("req body for test",req.body);
+
         console.log('imageUrl for test',imageUrl);
          const user = new User({
              name: req.body.name,
@@ -79,6 +81,7 @@
              redirect: '/'
          });
      } catch (err) {
+        console.error("REGISTER ERROR:", err);
         if (err.name === 'ValidationError') {
         const errors = Object.values(err.errors).map(e => {
             return e.message.replace(/Path `(\w+)` is required\./, "$1 is required");

@@ -300,14 +300,14 @@ window.addEventListener('keydown', (e)=> {
 });
 
 /* --- NEW: Sidebar Toggle Logic --- */
-const menuToggle = document.querySelector('.menu-toggle');
-const sidebar = document.querySelector('.sidebar');
-menuToggle.addEventListener('click', (e) => {
-    // Click ko page par फैलने (propagate) se roke
-    e.stopPropagation(); 
-    // Sidebar par 'sidebar-open' class lagaye/hataye
-    sidebar.classList.toggle('sidebar-open');
-});
+// const menuToggle = document.querySelector('.menu-toggle');
+// const sidebar = document.querySelector('.sidebar');
+// menuToggle.addEventListener('click', (e) => {
+//     // Click ko page par फैलने (propagate) se roke
+//     e.stopPropagation(); 
+//     // Sidebar par 'sidebar-open' class lagaye/hataye
+//     sidebar.classList.toggle('sidebar-open');
+// });
 
 function getRecentMatchesList() {
   $.ajax({

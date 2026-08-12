@@ -40,11 +40,55 @@ const Chat = require('./models/chatModel');
 const Notification = require('./models/notificationModel');
 const docusign = require("docusign-esign");
 const axios = require("axios");
+const { GoogleGenAI } = require('@google/genai');
+
 app.use('/',userRoute);
 app.get('/',function(req,res){
     res.send("Running");
 });
 
+const ai = new GoogleGenAI({
+    apiKey: process.env.GEMINI_API_KEY
+});
+
+  async function getGeminiReply(message) {
+
+      try {
+
+          const response = await ai.models.generateContent({
+              model: "gemini-3.6-flash",
+              contents: `
+              You are a dating app user chatting with a potential match.
+
+              Personality:
+              Attractive, playful, confident, warm and slightly flirty.
+
+              Rules:
+              - Reply naturally like a real person.
+              - Keep it short, one sentence.
+              - Be playful and charming.
+              - Use light flirting when appropriate.
+              - Use emojis naturally.
+              - Do not sound like an AI.
+              - Do not be vulgar or sexually explicit.
+
+                User message:
+                ${message}
+                `
+          });
+
+          console.log("Gemini Response:", response.text);
+
+          return response.text;
+
+      } catch (error) {
+
+          console.error("Gemini Error:", error);
+
+          return null;
+      }
+  }
+    //  getGeminiReply("hi");
 //code for socket.io
     const io = require('socket.io')(http);
     app.set('io', io); 
@@ -65,9 +109,74 @@ app.get('/',function(req,res){
         socket.broadcast.emit('getOflineUser', {user_id:userId});
     });
     //chating implementation
-    socket.on('newChat', function(data){
+    // socket.on('newChat', function(data){
+    //     socket.broadcast.emit('loadNewChat', data);
+    // });
+    socket.on('newChat', async function(data) {
+
+    try {
+
+        // Normal message receiver ko bhejo
         socket.broadcast.emit('loadNewChat', data);
-    });
+
+        // Receiver ka record nikalo
+        const receiver = await User.findById(data.receiver_id);
+
+        console.log("Receiver:", receiver?.name);
+        console.log("Is AI:", receiver?.is_ai);
+
+        // -------------------------------
+        // AI USER
+        // -------------------------------
+        if (receiver && receiver.is_ai === true) {
+
+            console.log("🤖 AI USER FOUND");
+
+            // Gemini reply
+            const aiReply = await getGeminiReply(data.message);
+
+            console.log("🤖 Gemini Reply:", aiReply);
+
+            if (!aiReply) {
+                return;
+            }
+
+            // -------------------------------
+            // SAVE AI MESSAGE IN DATABASE
+            // -------------------------------
+
+            const aiMessage = new Chat({
+                sender_id: data.receiver_id, // AI user
+                receiver_id: data.sender_id, // Real user
+                message: aiReply,
+                is_read: 0
+            });
+
+            const savedAiMessage = await aiMessage.save();
+
+            console.log("🤖 AI MESSAGE SAVED:", savedAiMessage._id);
+
+            // -------------------------------
+            // SEND AI MESSAGE TO REAL USER
+            // -------------------------------
+
+            usp.to(data.sender_id.toString()).emit(
+                'loadNewChat',
+                savedAiMessage
+            );
+
+        } else {
+            console.log("👤 Real User - Gemini nahi chalega");
+        }
+
+    } catch (error) {
+
+        console.error("AI Chat Error:", error);
+
+    }
+
+});
+    //updated code
     socket.on('user-typing',function(receiver_id){
         socket.broadcast.emit('user-typing-res',receiver_id,);
     });
