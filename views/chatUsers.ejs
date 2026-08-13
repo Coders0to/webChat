@@ -1,5 +1,5 @@
 <%- include('layouts/header-date.ejs') %>
-
+<link rel="stylesheet" href="/public/css/all-users.css">    
 <main class="main-content">
     <div class="dating-chat-page">
         <div class="chat-wrapper">
@@ -7,7 +7,16 @@
             <!-- LEFT SIDEBAR -->
             <div class="sidebar-panel">
                 <div class="search">
-                    <input type="text" placeholder="Search your match...">
+                    <!-- <input type="text" placeholder="Search your match..." id="searchUser"> -->
+                     <form action="/users" method="GET">
+                        <input 
+                            type="text" 
+                            id="searchUser" 
+                            name="search"
+                            placeholder="Search user..."
+                            value="<%= search || '' %>"
+                        >
+                    </form>
                 </div>
 
                 <% if(users.length > 0) { %>
@@ -44,7 +53,7 @@
                          ⬅
                     </button>
                     <img src="https://i.pravatar.cc/150?img=32">
-                    <h3 id="chatName">Select User</h3>
+                    <h3 id="chatName"></h3>
                 </div>
 
                 <div class="messages" id="messages"></div>
@@ -251,6 +260,23 @@ function stopTone() {
     audio.currentTime = 0;
     tonePlaying = false;
 }
+
+$('#searchUser').on('keyup', function () {
+    const searchInput = $(this).val();
+    $.ajax({
+        url: '/users',
+        type: 'GET',
+        data: {
+            search: searchInput
+        },
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (xhr) {
+            console.log(xhr.responseText);
+        }
+    });
+});
 </script>
 
 <script src="/socket.io/socket.io.js"></script>
