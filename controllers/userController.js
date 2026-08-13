@@ -625,7 +625,6 @@
                  $nin: idsArr
              }
          });
-
          const nearbyUsers = allUsers.filter(user => {
              const lat = parseFloat(user.latitude);
              const lng = parseFloat(user.longitude);
@@ -672,16 +671,9 @@
                 checkLiked: u.checkLiked || false,
                 is_online: u.is_online,
                 unreadMsgCount: u.unreadMsgCount,
-                    
                 dist:distance ? 'Near '+ parseInt(distance) + ' km' : '0 km',
             }))
         });
-
-        //  res.render('matchesRecord', {
-        //      currentRoute: '/loadMatchesTem',
-        //      users: nearbyUsers2
-        //  });
-         
 
      } catch (error) {
          console.error(error.message);
@@ -824,78 +816,94 @@
     //end code for user profile
 
     const getUsers = async (req, res) => {
-    try {
-        const currentUser = await User.findById(req.session.user._id);
+        try {
+            const currentUser = await User.findById(req.session.user._id);
 
-        if (!currentUser) {
-            return res.status(404).send('User not found');
-        }
-
-        let userId = req.session.user._id;
-
-        const matchesUsersIds = await Matches
-            .find({ user_id: userId })
-            .select('matches_id -_id');
-
-        const idsArr = matchesUsersIds.map(item => item.matches_id);
-
-        const userLat = parseFloat(currentUser.latitude);
-        const userLng = parseFloat(currentUser.longitude);
-        const radiusKm = 75;
-        // $nin: idsArr
-        const allUsers = await User.find({
-            _id: {
-                $ne: currentUser._id,
-                
+            if (!currentUser) {
+                return res.status(404).send('User not found');
             }
-        });
 
-        const nearbyUsers = allUsers.filter(user => {
-            const lat = parseFloat(user.latitude);
-            const lng = parseFloat(user.longitude);
+            let userId = req.session.user._id;
+            const search = req.query.search?.trim() || '';
+            const matchesUsersIds = await Matches
+                .find({ user_id: userId })
+                .select('matches_id -_id');
 
-            const distance = getDistanceFromLatLonInKm(userLat, userLng, lat, lng);
+            const idsArr = matchesUsersIds.map(item => item.matches_id);
 
-            //  distance attach kar do user me
-            user._doc.distance = distance;
+            const userLat = parseFloat(currentUser.latitude);
+            const userLng = parseFloat(currentUser.longitude);
+            const radiusKm = 75;
+            // $nin: idsArr
+            // let userQuery = await User.find({
+            //     _id: {
+            //         $ne: currentUser._id,
+                    
+            //     }
+            // });
+            let userQuery = {
+                _id: {
+                    $ne: currentUser._id
+                }
+            };
+            if (search) {
+                userQuery.$or = [
+                    {
+                        name: {
+                            $regex: search,
+                            $options: 'i'
+                        }
+                    }
+                ];
+            }
+            const allUsers = await User.find(userQuery);
+            const nearbyUsers = allUsers.filter(user => {
+                const lat = parseFloat(user.latitude);
+                const lng = parseFloat(user.longitude);
 
-            return distance <= radiusKm;
-        });
+                const distance = getDistanceFromLatLonInKm(userLat, userLng, lat, lng);
 
-        const nearbyUsers2 = await Promise.all(
-            nearbyUsers.map(async user => {
-                const likeCount = await likeModel.countDocuments({
-                    user_id: user._id
-                });
+                //  distance attach kar do user me
+                user._doc.distance = distance;
 
-                const unreadMsgCount = await Chat.countDocuments({receiver_id:userId,sender_id:user._id, is_read: 1});
-                console.log('unreadMsgCount',unreadMsgCount);
-                const checkLiked = await likeModel.exists({
-                    user_id: user._id,
-                    liker_id: currentUser._id
-                });
+                return distance <= radiusKm;
+            });
 
-                return {
-                    ...user.toObject(),
-                    likeCount,
-                    checkLiked: !!checkLiked,
-                    unreadMsgCount
-                };
-            })
-        );
+            const nearbyUsers2 = await Promise.all(
+                nearbyUsers.map(async user => {
+                    const likeCount = await likeModel.countDocuments({
+                        user_id: user._id
+                    });
 
-        //  YAHI MAIN FIX HAI
-        res.render('chatUsers', {
-            currentRoute: 'chatUsers',
-            user: req.session.user,
-            users: nearbyUsers2   //  ab EJS me available hoga
-        });
+                    const unreadMsgCount = await Chat.countDocuments({receiver_id:userId,sender_id:user._id, is_read: 1});
+                    console.log('unreadMsgCount',unreadMsgCount);
+                    const checkLiked = await likeModel.exists({
+                        user_id: user._id,
+                        liker_id: currentUser._id
+                    });
 
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).send('Internal Server Error');
-    }
-};
+                    return {
+                        ...user.toObject(),
+                        likeCount,
+                        checkLiked: !!checkLiked,
+                        unreadMsgCount
+                    };
+                })
+            );
+
+            //  YAHI MAIN FIX HAI
+            res.render('chatUsers', {
+                currentRoute: 'chatUsers',
+                user: req.session.user, 
+                search:search,
+                users: nearbyUsers2   //  ab EJS me available hoga
+            });
+            
+        } catch (error) {
+            console.error(error.message);
+            res.status(500).send('Internal Server Error');
+        }
+    };
 
  //end code for manage group code
  module.exports = {
