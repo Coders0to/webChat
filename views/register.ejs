@@ -1,325 +1,1842 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Join LoveVerse 💖</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Bootstrap & Toastr -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
+    <title>Meet Me - Sign In / Sign Up</title>
 
-  <style>
-    /* code for address suggesstions */
-    .location-wrapper {
-    position: relative;
-    width: 100%;
-}
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
 
-#locationInput {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 16px;
-}
+    <!-- Toastr -->
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+        rel="stylesheet">
 
-#locationSuggestions {
-    position: absolute;
-    top: 100%;        /* input ke bilkul neeche */
-    left: 0;
-    width: 100%;
-    background: white;
-    border: 1px solid #ccc;
-    border-top: none;
-    border-radius: 0 0 6px 6px;
-    max-height: 220px;
-    overflow-y: auto;
-    display: none;
-    z-index: 99999;   /* sabse upar */
-}
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
-.suggest-item {
-    padding: 10px;
-    cursor: pointer;
-    border-bottom: 1px solid #eee;
-}
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-.suggest-item:hover {
-    background: #f1f1f1;
-}
+        :root {
+            --primary: #c45acb;
+            --primary2: #e47ad8;
+            --dark: #34203d;
+            --muted: #9c8fa3;
+            --border: #eaddeb;
+        }
 
-    /* end code for this address suggesstions */
-    /* Fullscreen Background Video */
-    .video-bg {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -3;
-    }
+        html,
+        body {
+            min-height: 100%;
+        }
 
-    /* Gradient Overlay */
-    .overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to right, rgba(255,182,193,0.7), rgba(255,105,180,0.6));
-      z-index: -2;
-      backdrop-filter: blur(3px);
-    }
+        body {
+            min-height: 100vh;
+            font-family: "Poppins", sans-serif;
 
-    /* Floating Hearts */
-    .hearts {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: -1;
-    }
+            background:
+                linear-gradient(
+                    135deg,
+                    #ead7e4 0%,
+                    #f7e9f3 48%,
+                    #ddd5f5 100%
+                );
 
-    .heart {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: radial-gradient(circle at 30% 30%, #ff4b81, #ff0066);
-      transform: rotate(45deg);
-      animation: floatUp 10s linear infinite;
-      opacity: 0.8;
-    }
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-    .heart::before,
-    .heart::after {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: inherit;
-      border-radius: 50%;
-    }
+            overflow-x: hidden;
+            color: var(--dark);
 
-    .heart::before {
-      top: -10px;
-      left: 0;
-    }
+            padding: 20px;
+        }
 
-    .heart::after {
-      left: -10px;
-      top: 0;
-    }
+        /* =========================================
+           BACKGROUND CIRCLES
+        ========================================= */
 
-    @keyframes floatUp {
-      0% {
-        transform: translateY(100vh) rotate(45deg) scale(0.8);
-        opacity: 0;
-      }
-      30% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-10vh) rotate(45deg) scale(1.2);
-        opacity: 0;
-      }
-    }
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+        }
 
-    /* Form Layout */
-    body {
-      font-family: "Poppins", sans-serif;
-      color: #444;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+        body::before {
+            width: 350px;
+            height: 350px;
 
-    .register-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      gap: 0;
-    }
+            left: -180px;
+            top: -150px;
 
-    .left-content {
-      flex: 1;
-      text-align: center;
-      color: white;
-      padding: 4rem;
-    }
+            border: 60px solid rgba(255, 255, 255, .35);
+        }
 
-    .left-content h1 {
-      font-size: 2.8rem;
-      font-weight: 700;
-      text-shadow: 0 0 20px rgba(255,255,255,0.4);
-    }
+        body::after {
+            width: 400px;
+            height: 400px;
 
-    .left-content p {
-      font-size: 1.1rem;
-      margin-top: 15px;
-      color: #f9f9f9;
-    }
+            right: -220px;
+            bottom: -220px;
 
-    .form-box {
-      background: rgba(255, 255, 255, 0.95);
-      padding: 40px 50px;
-      border-radius: 20px;
-      width: 450px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      animation: fadeIn 1s ease;
-      margin: 20px;
-    }
+            border: 50px solid rgba(196, 90, 203, .10);
+        }
 
-    .form-box h2 {
-      color: #ff4b81;
-      font-weight: 600;
-      margin-bottom: 25px;
-      text-align: center;
-    }
+        /* =========================================
+           MAIN CARD
+        ========================================= */
 
-    input.error, select.error {
-      border: 1px solid #dc3545;
-    }
+        .auth-card {
+            width: min(1180px, 94vw);
+            min-height: 650px;
 
-    label {
-      font-weight: 500;
-      color: #333;
-    }
+            background: rgba(255, 255, 255, .92);
 
-    .btn-pink {
-      background: linear-gradient(90deg, #ff6f91, #ff4b81);
-      color: white;
-      font-weight: 600;
-      border: none;
-      transition: 0.3s;
-    }
+            border-radius: 28px;
 
-    .btn-pink:hover {
-      background: linear-gradient(90deg, #ff4b81, #ff6f91);
-      box-shadow: 0 0 15px rgba(255,105,180,0.6);
-    }
+            overflow: hidden;
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+            display: grid;
 
-    @media(max-width: 900px) {
-      .register-container {
-        flex-direction: column;
-        padding: 40px 10px;
-      }
-      .left-content {
-        padding: 20px;
-      }
-      .form-box {
-        width: 100%;
-        max-width: 400px;
-      }
-    }
-  </style>
+            /*
+                ORIGINAL DESIGN
+                FORM = 43%
+                ART  = 57%
+            */
+            grid-template-columns: 43% 57%;
+
+            position: relative;
+            z-index: 10;
+
+            box-shadow:
+                0 30px 80px rgba(104, 66, 110, .18);
+
+            animation: cardIn .7s ease;
+        }
+
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translateY(25px) scale(.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* =========================================
+           LEFT FORM SIDE
+        ========================================= */
+
+        .form-side {
+            padding: 50px 65px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            position: relative;
+            z-index: 10;
+
+            background: rgba(255, 255, 255, .94);
+        }
+
+        /* =========================================
+           LOGO
+        ========================================= */
+
+        .logo {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 26px;
+            font-weight: 700;
+
+            margin-bottom: 28px;
+        }
+
+        .logo-icon {
+            width: 34px;
+            height: 34px;
+
+            border-radius: 50%;
+
+            display: grid;
+            place-items: center;
+
+            color: #fff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    #9c55c9
+                );
+
+            box-shadow:
+                0 8px 20px rgba(196, 90, 203, .25);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        /* =========================================
+           TITLE
+        ========================================= */
+
+        h1 {
+            font-size: 32px;
+            line-height: 1.2;
+
+            margin-bottom: 7px;
+
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 13px;
+
+            color: var(--muted);
+
+            margin-bottom: 24px;
+        }
+
+        /* =========================================
+           SIGN IN / SIGN UP SWITCH
+        ========================================= */
+
+        .switcher {
+            height: 49px;
+
+            border: 1px solid #e4b9e5;
+
+            border-radius: 14px;
+
+            padding: 4px;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            background: #fff;
+
+            margin-bottom: 18px;
+        }
+
+        .switcher button {
+            border: 0;
+
+            background: transparent;
+
+            border-radius: 10px;
+
+            font:
+                600 14px "Poppins",
+                sans-serif;
+
+            color: var(--dark);
+
+            cursor: pointer;
+
+            transition: .35s;
+        }
+
+        .switcher button:hover {
+            color: var(--primary);
+        }
+
+        .switcher button.active {
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--primary2)
+                );
+
+            color: #fff;
+
+            box-shadow:
+                0 7px 16px rgba(196, 90, 203, .25);
+        }
+
+        /* =========================================
+           FORMS
+        ========================================= */
+
+        .auth-form {
+            display: none;
+
+            animation: fadeUp .35s ease;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================================
+           FIELD LABEL
+        ========================================= */
+
+        .field-label {
+            display: block;
+
+            font-size: 11px;
+            font-weight: 600;
+
+            color: #66566a;
+
+            margin:
+                8px 0 4px 4px;
+        }
+
+        .required {
+            color: var(--primary);
+        }
+
+        /* =========================================
+           FIELD
+        ========================================= */
+
+        .field {
+            position: relative;
+
+            margin: 11px 0;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+
+            height: 55px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 13px;
+
+            background: #fff;
+
+            outline: none;
+
+            font:
+                13px "Poppins",
+                sans-serif;
+
+            padding:
+                0 45px 0 43px;
+
+            transition: .25s;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: #d37bd6;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(211, 123, 214, .10);
+        }
+
+        .field .icon {
+            position: absolute;
+
+            left: 16px;
+            top: 17px;
+
+            z-index: 2;
+
+            color: #c26bc8;
+
+            font-size: 17px;
+        }
+
+        /* =========================================
+           PASSWORD EYE
+        ========================================= */
+
+        .password-eye {
+            position: absolute;
+
+            right: 16px;
+            top: 18px;
+
+            color: #95899c;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            z-index: 3;
+
+            user-select: none;
+        }
+
+        /* =========================================
+           FILE INPUT
+        ========================================= */
+
+        .field input[type="file"] {
+            padding:
+                10px 10px 0 43px;
+
+            cursor: pointer;
+        }
+
+        /* =========================================
+           LOCATION
+        ========================================= */
+
+        .location-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        #locationSuggestions {
+            position: absolute;
+
+            top: calc(100% + 3px);
+            left: 0;
+
+            width: 100%;
+
+            background: #fff;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            max-height: 200px;
+
+            overflow-y: auto;
+
+            display: none;
+
+            z-index: 99999;
+
+            box-shadow:
+                0 15px 30px
+                rgba(50, 30, 60, .12);
+        }
+
+        .suggest-item {
+            padding: 10px 13px;
+
+            cursor: pointer;
+
+            border-bottom:
+                1px solid #f0e7f0;
+
+            font-size: 12px;
+
+            transition: .2s;
+        }
+
+        .suggest-item:hover {
+            background: #fff4ff;
+
+            color: var(--primary);
+        }
+
+        /* =========================================
+           OPTIONS
+        ========================================= */
+
+        .options {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            font-size: 11px;
+
+            color: #777;
+
+            margin:
+                13px 0 17px;
+        }
+
+        .remember {
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            font-size: 11px;
+
+            margin: 0;
+        }
+
+        .remember input {
+            accent-color: var(--primary);
+        }
+
+        .options a,
+        .bottom a {
+            color: var(--primary);
+
+            font-weight: 600;
+
+            text-decoration: none;
+
+            cursor: pointer;
+        }
+
+        /* =========================================
+           SUBMIT
+        ========================================= */
+
+        .submit {
+            width: 100%;
+
+            height: 56px;
+
+            border: 0;
+
+            border-radius: 13px;
+
+            color: #fff;
+
+            font:
+                600 15px "Poppins",
+                sans-serif;
+
+            cursor: pointer;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--primary2)
+                );
+
+            box-shadow:
+                0 10px 22px
+                rgba(196, 90, 203, .25);
+
+            transition: .25s;
+        }
+
+        .submit:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 14px 28px
+                rgba(196, 90, 203, .32);
+        }
+
+        .submit:active {
+            transform: scale(.98);
+        }
+
+        .submit:disabled {
+            opacity: .65;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* =========================================
+           DIVIDER
+        ========================================= */
+
+        .divider {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            color: #b6aab9;
+
+            font-size: 12px;
+
+            margin: 21px 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+
+            height: 1px;
+
+            background: #eadfea;
+
+            flex: 1;
+        }
+
+        /* =========================================
+           SOCIAL
+        ========================================= */
+
+        .socials {
+            display: flex;
+
+            gap: 15px;
+        }
+
+        .social {
+            flex: 1;
+
+            height: 51px;
+
+            border:
+                1px solid #eadfea;
+
+            background: #fff;
+
+            border-radius: 13px;
+
+            cursor: pointer;
+
+            font-size: 20px;
+
+            transition: .25s;
+        }
+
+        .social:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(80, 50, 90, .09);
+        }
+
+        .facebook {
+            color: #1877f2;
+        }
+
+        .apple {
+            color: #111;
+        }
+
+        .google {
+            color: #4285f4;
+        }
+
+        /* =========================================
+           BOTTOM TEXT
+        ========================================= */
+
+        .bottom {
+            text-align: center;
+
+            font-size: 12px;
+
+            color: #999;
+
+            margin-top: 20px;
+
+            margin-bottom: 0;
+        }
+
+        /* =========================================
+           RIGHT ART SIDE
+        ========================================= */
+
+        .art-side {
+            position: relative;
+
+            overflow: hidden;
+
+            min-height: 650px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #fff8ff,
+                    #f8edf8
+                );
+        }
+
+        /* =========================================
+           LARGE CIRCLE
+        ========================================= */
+
+        .art-side::before {
+            content: "";
+
+            position: absolute;
+
+            width: 540px;
+            height: 540px;
+
+            border-radius: 50%;
+
+            border:
+                25px solid
+                rgba(211, 103, 213, .10);
+
+            left: 70px;
+            top: 45px;
+
+            animation:
+                rotateCircle 25s linear infinite;
+        }
+
+        /* =========================================
+           DASHED CIRCLE
+        ========================================= */
+
+        .art-side::after {
+            content: "";
+
+            position: absolute;
+
+            width: 400px;
+            height: 400px;
+
+            border-radius: 50%;
+
+            border:
+                2px dashed
+                rgba(207, 101, 211, .55);
+
+            left: 140px;
+            top: 115px;
+
+            animation:
+                rotateReverse 18s linear infinite;
+        }
+
+        @keyframes rotateCircle {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes rotateReverse {
+            to {
+                transform: rotate(-360deg);
+            }
+        }
+
+        /* =========================================
+           HERO PHOTO
+        ========================================= */
+
+        .hero-photo {
+            position: absolute;
+
+            width: 300px;
+            height: 300px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            left: 180px;
+            top: 150px;
+
+            border:
+                14px solid #e283dd;
+
+            box-shadow:
+                0 20px 45px
+                rgba(148, 77, 151, .20);
+
+            z-index: 2;
+
+            animation:
+                floatingPhoto 4s ease-in-out infinite;
+        }
+
+        @keyframes floatingPhoto {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* =========================================
+           AVATAR ORBIT
+        ========================================= */
+
+        .orbit {
+            position: absolute;
+
+            width: 520px;
+            height: 520px;
+
+            left: 70px;
+            top: 40px;
+
+            border-radius: 50%;
+
+            animation:
+                orbit 20s linear infinite;
+
+            z-index: 3;
+
+            pointer-events: none;
+        }
+
+        .avatar {
+            position: absolute;
+
+            width: 76px;
+            height: 76px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            border:
+                4px solid white;
+
+            box-shadow:
+                0 8px 25px
+                rgba(83, 49, 88, .22);
+        }
+
+        .a1 {
+            left: 62px;
+            top: 55px;
+        }
+
+        .a2 {
+            right: 32px;
+            top: 65px;
+        }
+
+        .a3 {
+            right: 10px;
+            bottom: 95px;
+        }
+
+        .a4 {
+            left: 95px;
+            bottom: 25px;
+        }
+
+        @keyframes orbit {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* =========================================
+           FLOATING ICONS
+        ========================================= */
+
+        .float-icon {
+            position: absolute;
+
+            z-index: 5;
+
+            color: #d16ed2;
+
+            animation:
+                bob 3s ease-in-out infinite;
+        }
+
+        .mail {
+            left: 80px;
+            top: 285px;
+
+            font-size: 45px;
+
+            transform: rotate(-15deg);
+        }
+
+        .love {
+            right: 65px;
+            top: 190px;
+
+            font-size: 34px;
+        }
+
+        .chat {
+            right: 105px;
+            bottom: 80px;
+
+            background: #b65ec3;
+
+            color: #fff;
+
+            padding:
+                9px 14px;
+
+            border-radius: 30px;
+
+            font-size: 17px;
+        }
+
+        @keyframes bob {
+            50% {
+                transform:
+                    translateY(-12px)
+                    rotate(3deg);
+            }
+        }
+
+        /* =========================================
+           ERROR
+        ========================================= */
+
+        input.error,
+        select.error {
+            border-color:
+                #dc3545 !important;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(220, 53, 69, .08) !important;
+        }
+
+        /* =========================================
+           SIGNUP SCROLL
+        ========================================= */
+
+        #register-section {
+            max-height: 500px;
+
+            overflow-y: auto;
+
+            padding-right: 5px;
+        }
+
+        #register-section::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        #register-section::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        #register-section::-webkit-scrollbar-thumb {
+            background: #df9de1;
+
+            border-radius: 10px;
+        }
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 1000px) {
+
+            .auth-card {
+                grid-template-columns: 1fr;
+
+                max-width: 600px;
+
+                min-height: auto;
+            }
+
+            .art-side {
+                display: none;
+            }
+
+            .form-side {
+                padding:
+                    45px 45px;
+            }
+
+            #register-section {
+                max-height: none;
+                overflow: visible;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .auth-card {
+                width: 94vw;
+
+                border-radius: 20px;
+            }
+
+            .form-side {
+                padding:
+                    30px 22px;
+            }
+
+            h1 {
+                font-size: 27px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .socials {
+                gap: 8px;
+            }
+
+            .social {
+                height: 48px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <!-- Romantic Background Video -->
-  <video autoplay muted loop class="video-bg">
-    <source src="https://cdn.pixabay.com/video/2023/09/06/181818-861303244_large.mp4" type="video/mp4">
-  </video>
-  <div class="overlay"></div>
-  <div class="hearts" id="hearts"></div>
 
-  <div class="register-container">
-    <div class="left-content">
-      <h1>Find Your Forever Person 💞</h1>
-      <p>Join LoveVerse today — where hearts meet, connect, and create real stories of love.</p>
+    <!-- =========================================
+         AUTH CARD
+    ========================================= -->
+
+    <div class="auth-card">
+
+        <!-- =====================================
+             LEFT FORM
+        ====================================== -->
+
+        <section class="form-side">
+
+            <!-- LOGO -->
+
+            <div class="logo">
+
+                <div class="logo-icon">
+                    ☁
+                </div>
+
+                Meet<span>Me</span>
+
+            </div>
+
+
+            <!-- TITLE -->
+
+            <h1 id="title">
+                Welcome back
+            </h1>
+
+            <p
+                id="subtitle"
+                class="subtitle"
+            >
+                Please enter your login details below
+            </p>
+
+
+            <!-- =================================
+                 SWITCHER
+            ================================== -->
+
+            <div class="switcher">
+
+                <button
+                    type="button"
+                    id="show-login"
+                    class="active"
+                >
+                    Sign In
+                </button>
+
+                <button
+                    type="button"
+                    id="show-register"
+                >
+                    Sign Up
+                </button>
+
+            </div>
+
+
+            <!-- =================================
+                 LOGIN
+            ================================== -->
+
+            <div
+                id="user-login"
+                class="auth-form active"
+            >
+
+                <form
+                    id="loginForm"
+                    method="post"
+                    action="/"
+                >
+
+                    <!-- EMAIL -->
+
+                    <label class="field-label">
+                        Email
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="field">
+
+                        <span class="icon">
+                            @
+                        </span>
+
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <label class="field-label">
+                        Password
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="field">
+
+                        <span class="icon">
+                            🔒
+                        </span>
+
+                        <input
+                            type="password"
+                            id="login-password"
+                            name="password"
+                            placeholder="Enter your password"
+                            required
+                        >
+
+                        <span
+                            class="password-eye"
+                            onclick="
+                                togglePassword(
+                                    'login-password',
+                                    this
+                                )
+                            "
+                        >
+                            ◉
+                        </span>
+
+                    </div>
+
+
+                    <!-- OPTIONS -->
+
+                    <div class="options">
+
+                        <label class="remember">
+
+                            <input
+                                type="checkbox"
+                                name="remember"
+                            >
+
+                            Remember me
+
+                        </label>
+
+                        <a href="#">
+                            Forgot Password?
+                        </a>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+
+                    <button
+                        type="submit"
+                        class="submit"
+                    >
+                        Sign In
+                    </button>
+
+
+                    <!-- DIVIDER -->
+
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
+
+
+                    <!-- SOCIAL -->
+
+                    <div class="socials">
+
+                        <button
+                            type="button"
+                            class="social facebook"
+                        >
+                            f
+                        </button>
+
+                        <button
+                            type="button"
+                            class="social apple"
+                        >
+                            ●
+                        </button>
+
+                        <button
+                            type="button"
+                            class="social google"
+                        >
+                            G
+                        </button>
+
+                    </div>
+
+
+                    <!-- BOTTOM -->
+
+                    <p class="bottom">
+
+                        Don't have an account?
+
+                        <a id="login-to-register">
+                            Sign up
+                        </a>
+
+                    </p>
+
+                </form>
+
+            </div>
+
+
+            <!-- =================================
+                 REGISTER
+            ================================== -->
+
+            <div
+                id="register-section"
+                class="auth-form"
+            >
+
+                <form
+                    id="user-register"
+                    autocomplete="off"
+                    enctype="multipart/form-data"
+                >
+
+                    <!-- NAME -->
+
+                    <label class="field-label">
+
+                        Full Name
+                        <span class="required">*</span>
+
+                    </label>
+
+                    <div class="field">
+
+                        <span class="icon">
+                            ♙
+                        </span>
+
+                        <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <label class="field-label">
+
+                        Email
+                        <span class="required">*</span>
+
+                    </label>
+
+                    <div class="field">
+
+                        <span class="icon">
+                            @
+                        </span>
+
+                        <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            placeholder="Enter your email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <label class="field-label">
+
+                        Password
+                        <span class="required">*</span>
+
+                    </label>
+
+                    <div class="field">
+
+                        <span class="icon">
+                            🔒
+                        </span>
+
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            placeholder="Create your password"
+                            required
+                        >
+
+                        <span
+                            class="password-eye"
+                            onclick="
+                                togglePassword(
+                                    'password',
+                                    this
+                                )
+                            "
+                        >
+                            ◉
+                        </span>
+
+                    </div>
+
+
+                    <!-- PROFILE IMAGE -->
+
+                    <label class="field-label">
+
+                        Profile Image
+                        <span class="required">*</span>
+
+                    </label>
+
+                    <div class="field">
+
+                        <span class="icon">
+                            📷
+                        </span>
+
+                        <input
+                            type="file"
+                            name="image"
+                            id="image"
+                            accept="image/*"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- GENDER -->
+
+                    <label class="field-label">
+
+                        Gender
+                        <span class="required">*</span>
+
+                    </label>
+
+                    <div class="field">
+
+                        <span class="icon">
+                            ♡
+                        </span>
+
+                        <select
+                            name="gender"
+                            id="gender"
+                            required
+                        >
+
+                            <option value="">
+                                Select Gender
+                            </option>
+
+                            <option value="male">
+                                Male
+                            </option>
+
+                            <option value="female">
+                                Female
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- LOCATION -->
+
+                    <label class="field-label">
+
+                        Location
+                        <span class="required">*</span>
+
+                    </label>
+
+                    <div class="field">
+
+                        <span class="icon">
+                            📍
+                        </span>
+
+                        <div class="location-wrapper">
+
+                            <input
+                                type="text"
+                                id="locationInput"
+                                name="location"
+                                placeholder="Search your location"
+                                required
+                            >
+
+                            <div
+                                id="locationSuggestions"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- LATITUDE -->
+
+                    <input
+                        type="hidden"
+                        id="latitude"
+                        name="latitude"
+                    >
+
+
+                    <!-- LONGITUDE -->
+
+                    <input
+                        type="hidden"
+                        id="longitude"
+                        name="longitude"
+                    >
+
+
+                    <!-- TERMS -->
+
+                    <div class="options">
+
+                        <label class="remember">
+
+                            <input
+                                type="checkbox"
+                                name="terms"
+                                required
+                            >
+
+                            I agree to the terms
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+
+                    <button
+                        type="submit"
+                        id="submit-btn"
+                        class="submit"
+                    >
+                        Create Account
+                    </button>
+
+
+                    <!-- BOTTOM -->
+
+                    <p class="bottom">
+
+                        Already have an account?
+
+                        <a id="register-to-login">
+                            Sign in
+                        </a>
+
+                    </p>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             RIGHT ARTWORK
+        ====================================== -->
+
+        <section class="art-side">
+
+
+            <!-- MAIN IMAGE -->
+
+            <img
+                class="hero-photo"
+                src="https://images.unsplash.com/photo-1496440737103-cd596325d314?auto=format&fit=crop&w=700&q=85"
+                alt="Meet Me"
+            >
+
+
+            <!-- ORBIT -->
+
+            <div class="orbit">
+
+                <img
+                    class="avatar a1"
+                    src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=200&q=80"
+                    alt=""
+                >
+
+                <img
+                    class="avatar a2"
+                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80"
+                    alt=""
+                >
+
+                <img
+                    class="avatar a3"
+                    src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80"
+                    alt=""
+                >
+
+                <img
+                    class="avatar a4"
+                    src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=200&q=80"
+                    alt=""
+                >
+
+            </div>
+
+
+            <!-- FLOATING ICONS -->
+
+            <div class="float-icon mail">
+                ➤
+            </div>
+
+            <div class="float-icon love">
+                ●
+            </div>
+
+            <div class="float-icon chat">
+                •••
+            </div>
+
+
+        </section>
+
     </div>
 
-    <div class="form-box">
-      <h2 id="form-title">Join LoveVerse</h2>
-      <form id="user-register" autocomplete="off" enctype="multipart/form-data">
-        <div class="mb-3">
-          <label for="name">Name <span style="color:red">*</span></label>
-          <input type="text" name="name" id="name" placeholder="Full Name" class="form-control" required>
-        </div>
 
-        
+    <!-- =========================================
+         JQUERY
+    ========================================= -->
 
-        <div class="mb-3">
-          <label for="email">Email <span style="color:red">*</span></label>
-          <input type="email" name="email" id="email" placeholder="Email" class="form-control" required>
-          
-        </div>
-        <div class="mb-3">
-          <label for="image">Profile Img <span style="color:red">*</span></label>
-          <input type="file" name="image" id="image" placeholder="Image" class="form-control" required>
-        </div>
+    <script
+        src="https://code.jquery.com/jquery-3.6.0.min.js">
+    </script>
 
-        <div class="mb-3">
-          <label for="password">Password <span style="color:red">*</span></label>
-          <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
-        </div>
 
-        <div class="mb-3">
-          <label for="gender">Gender <span style="color:red">*</span></label>
-          <select class="form-control" name="gender" id="gender" required>
-            <option value="">Select Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
-        </div>
+    <!-- =========================================
+         TOASTR
+    ========================================= -->
 
-        <div class="mb-3">
-          <label for="location">Location <span style="color:red">*</span></label>
-          <!-- id="location" -->
-          <!-- <input id="search" name="location" class="form-control" placeholder="Your Current Location" required type="text">
-          <div id="suggestions"></div> -->
-          <div class="location-wrapper">
-              <input type="text" id="locationInput" placeholder="Location">
-              <div id="locationSuggestions"></div>
-          </div>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js">
+    </script>
 
-          <input type="hidden" id="latitude" name="latitude">
-          <input type="hidden" id="longitude" name="longitude">
-        </div>
 
-        <div class="text-center">
-          <input type="submit" value="Register" id="submit-btn" class="btn btn-pink w-100 py-2">
-        </div>
-        <div class="text-center mt-3">
-          <p>Already have an account? 
-            <a  id="show-login" class="text-pink" style="color:#e91e63; text-decoration:none;cursor:pointer;">Login here</a>
-          </p>
-        </div>
-      </form>
-      <!-- code for login  -->
-       <div class="container" id="user-login" style="display:none;">
-        <div class="row">
-          <div class="col-sm-12 col-md-12 col-offset-4" style="margin:10% auto;text-align:center;">
-            <form id="loginForm" method="post" action="/">
-              <input type="email" name="email" placeholder="email" class="form-control mb-3" required>
-              <input type="password" name="password" placeholder="password" class="form-control mb-3" required>
-              <div class="text-center">
-                <input type="submit" value="Login User"  class="btn btn-pink w-100 py-2">
-              </div>
-              <div class="text-center mt-3">
-                <p>Don’t have an account?
-                  <a id="show-register" style="color:#e91e63; text-decoration:none;cursor:pointer;">Register here</a>
-                </p>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-      <!-- end code for login -->
-    </div>
-  </div>
+    <!-- =========================================
+         PASSWORD TOGGLE
+    ========================================= -->
 
-  <!-- Scripts -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBv0hnS3pfteHN1XbAXFrrfs-PV3aX1C8Y&callback=initAutocomplete&libraries=places&v=weekly" async defer></script>
-  <script src="public/js/authentic.js"></script>
+    <script>
+
+        function togglePassword(id, element) {
+
+            const input = document.getElementById(id);
+
+            if (!input) {
+                return;
+            }
+
+            if (input.type === "password") {
+
+                input.type = "text";
+
+                element.textContent = "◌";
+
+            } else {
+
+                input.type = "password";
+
+                element.textContent = "◉";
+
+            }
+        }
+
+    </script>
+
+
+    <!-- =========================================
+         LOGIN / REGISTER SWITCH
+    ========================================= -->
+
+    <script>
+
+        const loginTab =
+            document.getElementById("show-login");
+
+        const registerTab =
+            document.getElementById("show-register");
+
+        const loginSection =
+            document.getElementById("user-login");
+
+        const registerSection =
+            document.getElementById("register-section");
+
+        const title =
+            document.getElementById("title");
+
+        const subtitle =
+            document.getElementById("subtitle");
+
+
+        function showLogin() {
+
+            loginTab.classList.add("active");
+
+            registerTab.classList.remove("active");
+
+            loginSection.classList.add("active");
+
+            registerSection.classList.remove("active");
+
+            title.textContent =
+                "Welcome back";
+
+            subtitle.textContent =
+                "Please enter your login details below";
+
+        }
+
+
+        function showRegister() {
+
+            registerTab.classList.add("active");
+
+            loginTab.classList.remove("active");
+
+            registerSection.classList.add("active");
+
+            loginSection.classList.remove("active");
+
+            title.textContent =
+                "Create account";
+
+            subtitle.textContent =
+                "Join us and start meeting new people";
+
+        }
+
+
+        loginTab.addEventListener(
+            "click",
+            showLogin
+        );
+
+
+        registerTab.addEventListener(
+            "click",
+            showRegister
+        );
+
+
+        document
+            .getElementById("login-to-register")
+            .addEventListener(
+                "click",
+                function (e) {
+
+                    e.preventDefault();
+
+                    showRegister();
+
+                }
+            );
+
+
+        document
+            .getElementById("register-to-login")
+            .addEventListener(
+                "click",
+                function (e) {
+
+                    e.preventDefault();
+
+                    showLogin();
+
+                }
+            );
+
+    </script>
+
+
+    <!-- =========================================
+         LOCATION SEARCH
+         Existing API/AJAX ko yahan connect kar sakte ho
+    ========================================= -->
+
+    <script>
+
+        const locationInput =
+            document.getElementById("locationInput");
+
+        const locationSuggestions =
+            document.getElementById("locationSuggestions");
+
+        const latitudeInput =
+            document.getElementById("latitude");
+
+        const longitudeInput =
+            document.getElementById("longitude");
+
+
+        let locationTimer = null;
+
+
+        if (locationInput) {
+
+            locationInput.addEventListener(
+                "input",
+                function () {
+
+                    const query =
+                        this.value.trim();
+
+                    clearTimeout(locationTimer);
+
+
+                    if (query.length < 2) {
+
+                        locationSuggestions.style.display =
+                            "none";
+
+                        locationSuggestions.innerHTML =
+                            "";
+
+                        return;
+                    }
+
+
+                    /*
+                     * Yahan aapka existing location AJAX
+                     * code use ho sakta hai.
+                     *
+                     * Example:
+                     *
+                     * $.ajax({
+                     *     url: "/location-search",
+                     *     data: {
+                     *         search: query
+                     *     },
+                     *     success: function(response) {
+                     *
+                     *     }
+                     * });
+                     */
+
+
+                    locationTimer =
+                        setTimeout(
+                            function () {
+
+                                /*
+                                 * Existing authentic.js mein
+                                 * agar location API already hai,
+                                 * to usko override nahi karna.
+                                 */
+
+                            },
+                            300
+                        );
+
+                }
+            );
+
+        }
+
+
+        document.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    locationSuggestions &&
+                    !locationInput.contains(event.target) &&
+                    !locationSuggestions.contains(event.target)
+                ) {
+
+                    locationSuggestions.style.display =
+                        "none";
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+    <!-- =========================================
+         YOUR EXISTING DYNAMIC JS
+    ========================================= -->
+
+    <script src="/public/js/authentic.js"></script>
+
 
 </body>
+
 </html>

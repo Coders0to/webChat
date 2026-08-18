@@ -34,7 +34,9 @@ user_route.post('/register',upload.single('image'), userController.register);
 user_route.get('/create-group', userController.createGroup);
 user_route.post('/save-group', userController.saveGroup);
 
-user_route.get('/', auth.isLogout, userController.loadLogin);
+ //user_route.get('/', auth.isLogout, userController.loadLogin);
+ user_route.get('/', auth.isLogout, userController.registerLoad);
+
 user_route.post('/',userController.login);
 user_route.get('/logout',auth.isLogin, userController.logout);
 user_route.get('/dashboard',auth.isLogin, userController.loadDashboard);
